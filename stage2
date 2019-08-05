@@ -56,10 +56,11 @@ cat <<EOF > /nixos/etc/nixos/nixos-in-place.nix
     cloud-init
   ];
   
-  services.cloud-init.enabled = true;
-  services.cloud-init.config = ''
-$(cat /etc/netplan/50-cloud-init.yaml)
-  '';
+  # Uncomment the lines below to have network access
+  #services.cloud-init.enabled = true;
+  #services.cloud-init.config = ''
+$(cat /etc/netplan/50-cloud-init.yaml | sed 's/^/#/g')
+  #'';
 
   ## You probably do NOT want to change these settings.
   boot.kernelParams = ["boot.shell_on_fail"];
