@@ -84,6 +84,10 @@ nixos_dir=/nixos/etc/nixos
 cp $nixos_dir/configuration.nix $nixos_dir/backup-configuration.nix
 sed -i 's|\(\s*\)\(./hardware-configuration.nix\)|\1\2\n\1./nixos-in-place.nix|' $nixos_dir/configuration.nix
 
+upgrade_version="19.03"
+log "Preparing NixOS for $upgrade_version upgrade"
+sed -i "s|\(\s*\)system.stateVersion\(\s*\)=\(\s*\)\"\[0-9\.\]+\"|\1system.stateVersion\2=\3\"$upgrade_version\"|" $nixos_dir/configuration.nix
+
 ## Enable SSH by default
 sed -i 's/# \(services\.openssh\)/\1/' $nixos_dir/configuration.nix
 
