@@ -95,7 +95,7 @@ sed -i 's|\(\s*\)\(./hardware-configuration.nix\)|\1\2\n\1./nixos-in-place.nix|'
 upgrade_version="19.03"
 printf ">>> %s\n" "Preparing NixOS for $upgrade_version upgrade"
 sed -i "s/16.09/$upgrade_version/" $nixos_dir/configuration.nix
-sudo nix-channel --add https://nixos.org/channels/nixos-$upgrade_version 20 nixos
+nix-channel --add https://nixos.org/channels/nixos-$upgrade_version 20 nixos
 
 ## Enable SSH by default
 sed -i 's/# \(services\.openssh\)/\1/' $nixos_dir/configuration.nix
