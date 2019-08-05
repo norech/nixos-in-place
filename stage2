@@ -52,6 +52,13 @@ cat <<EOF > /nixos/etc/nixos/nixos-in-place.nix
 {
   ## You probably want to change or remove these settings.
   $(cat /nixos/extra-config)
+  environment.systemPackages = with pkgs; [
+    cloud-init
+  ];
+
+  services.cloud-init.config = ''
+$(cat /etc/netplan/50-cloud-init.yaml)
+  '';
 
   ## You probably do NOT want to change these settings.
   boot.kernelParams = ["boot.shell_on_fail"];
